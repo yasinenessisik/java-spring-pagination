@@ -21,19 +21,33 @@ GET /books?page=0&size=10&limit=10&sort=createdAt,asc&distinct=true&offset=20
 
 This request will retrieve the first page with up to 10 items per page, limit the results to 10 items, sort them by createdAt in ascending order, filter out duplicate values, and start the results from the 20th item.
 
-### JSON Examples
+### Code Examples
 
-JSON examples containing pagination, limit, sort, distinct, and offset parameters:
+#### Retrieve First Page with Pageable
 
-```json
-{
-  "page": 0,
-  "size": 10,
-  "limit": 10,
-  "sort": "createdAt,asc",
-  "distinct": true,
-  "offset": 20
+```java
+// Retrieve the first page
+Page<Book> bookPage = bookRepository.findAll(PageRequest.of(0, 10, Sort.by("createdAt")));
+
+// Check if there is a next page
+if (bookPage.hasNext()) {
+    // Retrieve the next page
+    Page<Book> nextPage = bookRepository.findAll(bookPage.nextPageable());
+    // Perform necessary operations using the next page
 }
 ```
 
-This JSON example retrieves the first page with up to 10 items per page, limits the results to 10 items, sorts them by createdAt in ascending order, filters out duplicate values, and starts the results from the 20th item.
+#### Retrieve Data with Slice and Check for Next Page
+
+```java
+// Retrieve a slice of data
+Slice<Book> bookSlice = bookRepository.findAll(PageRequest.of(0, 10, Sort.by("createdAt")));
+
+// Check if there is a next page
+if (bookSlice.hasNext()) {
+    // Retrieve the next slice
+    Slice<Book> nextSlice = bookRepository.findAll(bookSlice.nextPageable());
+}
+```
+
+These code examples demonstrate how to retrieve data using pagination with Spring Data JPA.
