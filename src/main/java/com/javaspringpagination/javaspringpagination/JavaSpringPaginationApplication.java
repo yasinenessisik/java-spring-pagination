@@ -1,0 +1,13 @@
+package com.javaspringpagination.javaspringpagination;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class JavaSpringPaginationApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(JavaSpringPaginationApplication.class, args);
+	}
+
+}
